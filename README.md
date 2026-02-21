@@ -1,6 +1,6 @@
 # 📝 Task Manager App
 
-A simple and modern task management app built with React + Vite + Tailwind CSS.
+A simple and modern task management app built with React + Tailwind CSS.
 
 ## 🚀 Features
 - Add tasks
