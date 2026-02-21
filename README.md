@@ -12,7 +12,6 @@ A simple and modern task management app built with React + Tailwind CSS.
 
 ## 🛠 Technologies
 - React
-- Vite
 - Tailwind CSS
 - JavaScript
 
