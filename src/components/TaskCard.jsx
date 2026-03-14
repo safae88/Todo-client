@@ -1,31 +1,33 @@
+import React from "react";
+
 function TaskCard({ task, deleteTask, changeStatus }) {
   return (
-    <div className="bg-white p-4 rounded shadow flex justify-between items-center">
-      <span className="font-medium">{task.title}</span>
-
-      <div className="flex items-center gap-3">
-        <span
-          className={`px-3 py-1 rounded text-sm text-white ${
+    <div className="p-4 bg-white rounded shadow flex justify-between items-center">
+      <div>
+        <h3 className="text-lg font-semibold">{task.title}</h3>
+        <p
+          className={`mt-1 font-medium ${
             task.status === "To-Do"
-              ? "bg-gray-500"
+              ? "text-gray-500"
               : task.status === "Doing"
-              ? "bg-yellow-500"
-              : "bg-green-600"
+              ? "text-yellow-500"
+              : "text-green-500"
           }`}
         >
           {task.status}
-        </span>
+        </p>
+      </div>
 
+      <div className="flex gap-2">
         <button
-          onClick={() => changeStatus(task.id)}
-          className="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600"
+          onClick={() => changeStatus(task._id, task.status)}
+          className="px-3 py-1 bg-indigo-500 text-white rounded hover:bg-indigo-600"
         >
-          Next
+          Change Status
         </button>
-
         <button
-          onClick={() => deleteTask(task.id)}
-          className="px-3 py-1 text-sm bg-red-500 text-white rounded hover:bg-red-600"
+          onClick={() => deleteTask(task._id)}
+          className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
         >
           Delete
         </button>

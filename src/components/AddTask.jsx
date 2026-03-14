@@ -1,26 +1,30 @@
+import React from "react";
+
 function AddTask({ newTask, setNewTask, addTask }) {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (newTask.trim() === "") return;
+    addTask(newTask.trim());
+  };
+
   return (
-    <form onSubmit={addTask} className="flex gap-4 mb-6">
+    <form
+      onSubmit={handleSubmit}
+      className="flex gap-2 mb-6"
+    >
       <input
-  type="text"
-  placeholder="Write a new task..."
-  value={newTask}
-  onChange={(e) => setNewTask(e.target.value)}
-  className="flex-1 p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-/>
-
-
+        type="text"
+        placeholder="📝 Add a new task..."
+        value={newTask}
+        onChange={(e) => setNewTask(e.target.value)}
+        className="flex-1 p-3 border rounded focus:ring-2 focus:ring-blue-500"
+      />
       <button
-  disabled={!newTask.trim()}
-  className={`px-6 rounded text-white ${
-    newTask.trim()
-      ? "bg-blue-600 hover:bg-blue-700"
-      : "bg-gray-400 cursor-not-allowed"
-  }`}
->
-  Add
-</button>
-
+        type="submit"
+        className="p-3 bg-blue-500 text-white rounded hover:bg-blue-600"
+      >
+        Add
+      </button>
     </form>
   );
 }

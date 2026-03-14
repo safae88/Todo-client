@@ -18,4 +18,7 @@ function App() {
   );
 }
 
-export default App;
+export default App; // Exporting the App component
+//  as the default export of this module, 
+// allowing it to be imported and used 
+// in other parts of the application.
