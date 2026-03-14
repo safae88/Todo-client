@@ -1,3 +1,25 @@
+# 📝 Task Manager App
+
+A simple and modern task management app built with React + Tailwind CSS.
+
+## 🚀 Features
+- Add tasks
+- Delete tasks
+- Change status
+- Search tasks
+- Filter by status
+- Data saved in LocalStorage
+
+## 🛠 Technologies
+- React
+- Tailwind CSS
+- JavaScript
+
+## 🌍 Live Demo
+[vercel](https://todo-client-gold.vercel.app/register)
+
+************************************************************************************************************
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
