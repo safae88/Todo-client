@@ -11,7 +11,17 @@ function Dashboard() {
 
   const navigate = useNavigate();
 
-  // التحقق من وجود توكن
+  const normalizeTask = (task) => ({
+    ...task,
+    _id: task._id ?? task.id,
+  });
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const normalizeTasks = (taskList) =>
+    Array.isArray(taskList) ? taskList.map(normalizeTask) : [];
+
+
+  // Vérifier le token
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -19,7 +29,7 @@ function Dashboard() {
     }
   }, [navigate]);
 
-  // جلب المهام عند تحميل الصفحة
+  // Récupérer les tâches
   useEffect(() => {
     const fetchTasks = async () => {
       const token = localStorage.getItem("token");
@@ -34,19 +44,26 @@ function Dashboard() {
             },
           }
         );
+
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}: ${await res.text()}`);
+        }
+
         const data = await res.json();
-        setTasks(data);
+        const rawTasks = Array.isArray(data) ? data : data.tasks || [];
+        setTasks(normalizeTasks(rawTasks));
       } catch (error) {
         console.error("Error fetching tasks:", error);
       }
     };
 
     fetchTasks();
-  }, []);
+  }, [normalizeTasks]);
 
-  // إضافة مهمة جديدة
+  // Ajouter une tâche
   const addTask = async (title) => {
     const token = localStorage.getItem("token");
+
     try {
       const res = await fetch(
         "https://selfless-nourishment-production-9209.up.railway.app/api/tasks",
@@ -60,19 +77,26 @@ function Dashboard() {
         }
       );
 
+      if (!res.ok) {
+        throw new Error("Failed to add task");
+      }
+
       const data = await res.json();
-      setTasks((prevTasks) => [data, ...prevTasks]); // تحديث المهام مباشرة
-      setNewTask(""); // مسح input
+      const normalized = normalizeTask(data);
+
+      setTasks((prevTasks) => [normalized, ...prevTasks]);
+      setNewTask("");
     } catch (error) {
       console.error("Error adding task:", error);
     }
   };
 
-  // حذف مهمة
+  // Supprimer tâche
   const deleteTask = async (id) => {
     const token = localStorage.getItem("token");
+
     try {
-      await fetch(
+      const res = await fetch(
         `https://selfless-nourishment-production-9209.up.railway.app/api/tasks/${id}`,
         {
           method: "DELETE",
@@ -81,15 +105,23 @@ function Dashboard() {
           },
         }
       );
-      setTasks((prevTasks) => prevTasks.filter((task) => task._id !== id));
+
+      if (!res.ok) {
+        throw new Error("Failed to delete task");
+      }
+
+      setTasks((prevTasks) =>
+        prevTasks.filter((task) => task._id !== id && task.id !== id)
+      );
     } catch (error) {
       console.error("Error deleting task:", error);
     }
   };
 
-  // تغيير حالة المهمة
+  // Changer status
   const changeStatus = async (id, currentStatus) => {
     const token = localStorage.getItem("token");
+
     const nextStatus =
       currentStatus === "To-Do"
         ? "Doing"
@@ -109,28 +141,40 @@ function Dashboard() {
           body: JSON.stringify({ status: nextStatus }),
         }
       );
+
+      if (!res.ok) {
+        throw new Error("Failed to update task");
+      }
+
       const updatedTask = await res.json();
+      const normalizedUpdated = normalizeTask(updatedTask);
+
       setTasks((prevTasks) =>
-        prevTasks.map((task) => (task._id === id ? updatedTask : task))
+        prevTasks.map((task) =>
+          task._id === id || task.id === id ? normalizedUpdated : task
+        )
       );
     } catch (error) {
       console.error("Error updating task:", error);
     }
   };
 
-  // تصفية المهام حسب البحث والحالة
+  // Filtrer les tâches
   const filteredTasks = tasks.filter((task) => {
-    const matchesSearch = task.title
+    const matchesSearch = (task.title || "")
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
+
     const matchesStatus =
       filterStatus === "All" || task.status === filterStatus;
+
     return matchesSearch && matchesStatus;
   });
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <h1 className="text-3xl font-bold mb-2">📋 My Tasks</h1>
+
       <p className="text-gray-600 mb-6">
         Organize your time and track your progress
       </p>
