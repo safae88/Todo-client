@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { apiUrl } from "../api";
+import { API_URL } from "../api";
 
 function Login() {
   const navigate = useNavigate();
@@ -15,7 +15,8 @@ function Login() {
     const passwordValue = String(fd.get("password") ?? "");
 
     try {
-      const res = await fetch(apiUrl("/api/auth/login"), {
+      // Not a hardcoded host: API_URL comes from process.env.REACT_APP_API_URL (see ../api.js)
+      const res = await fetch(`${API_URL}/api/auth/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
