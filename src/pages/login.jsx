@@ -1,47 +1,78 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("https://selfless-nourishment-production-9209.up.railway.app/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
+    // Read from the form at submit time so browser autofill values are included
+    // (autofill often does not fire React onChange before submit).
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    const emailValue = String(fd.get("email") ?? "").trim();
+    const passwordValue = String(fd.get("password") ?? "");
 
-    const data = await res.json();
+    try {
+      const res = await fetch(
+        "https://selfless-nourishment-production-9209.up.railway.app/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: emailValue,
+            password: passwordValue,
+          }),
+        }
+      );
 
-    if (data.token) {
-      localStorage.setItem("token", data.token);
-      navigate("/dashboard");
-    } else {
-      alert("Login failed");
+      let data;
+      const text = await res.text();
+      try {
+        data = text ? JSON.parse(text) : {};
+      } catch {
+        alert("Login failed: unexpected response from server.");
+        return;
+      }
+
+      if (res.ok && data.token) {
+        localStorage.setItem("token", data.token);
+        navigate("/dashboard");
+        return;
+      }
+
+      const message =
+        typeof data.message === "string"
+          ? data.message
+          : "Invalid email or password.";
+      alert(`Login failed: ${message}`);
+    } catch {
+      alert(
+        "Login failed: could not reach the server. Check your connection and try again."
+      );
     }
   };
 
   return (
-    <form onSubmit={handleLogin} className="p-10 max-w-md mx-auto">
+    <form onSubmit={handleLogin} className="p-10 max-w-md mx-auto" noValidate>
       <h2 className="text-2xl mb-4">Login</h2>
       <input
+        name="email"
+        type="email"
+        autoComplete="email"
         className="border p-2 w-full mb-3"
         placeholder="Email"
-        onChange={(e) => setEmail(e.target.value)}
       />
       <input
+        name="password"
         type="password"
+        autoComplete="current-password"
         className="border p-2 w-full mb-3"
         placeholder="Password"
-        onChange={(e) => setPassword(e.target.value)}
       />
-      <button className="bg-blue-600 text-white p-2 w-full">
+      <button type="submit" className="bg-blue-600 text-white p-2 w-full">
         Login
       </button>
     </form>
