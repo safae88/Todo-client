@@ -1,16 +1,13 @@
 /**
- * Backend base URL (Railway). Override locally with REACT_APP_API_URL in .env
- * e.g. REACT_APP_API_URL=http://localhost:5000
+ * Base URL for the backend. Set REACT_APP_API_URL in .env (e.g. your Railway URL on Vercel).
+ * Falls back to local dev server when unset.
  */
-const RAILWAY_BASE =
-  "https://selfless-nourishment-production-9209.up.railway.app";
-
-export const API_BASE_URL = (
-  process.env.REACT_APP_API_URL || RAILWAY_BASE
+export const API_URL = (
+  process.env.REACT_APP_API_URL || "http://localhost:5000"
 ).replace(/\/$/, "");
 
-/** Build a full URL for an API path (path should start with /api/...). */
+/** Build a full URL for an API path (e.g. "/api/auth/login"). */
 export function apiUrl(path) {
   const p = path.startsWith("/") ? path : `/${path}`;
-  return `${API_BASE_URL}${p}`;
+  return `${API_URL}${p}`;
 }
