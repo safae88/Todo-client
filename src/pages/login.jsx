@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
   const navigate = useNavigate();
@@ -85,6 +85,15 @@ function Login() {
             Login
           </button>
         </form>
+        <p className="mt-6 text-center text-sm text-gray-600">
+          Don&apos;t have an account?{" "}
+          <Link
+            to="/register"
+            className="font-medium text-blue-600 hover:text-blue-700 hover:underline"
+          >
+            Register
+          </Link>
+        </p>
       </div>
     </div>
   );
