@@ -56,26 +56,37 @@ function Login() {
   };
 
   return (
-    <form onSubmit={handleLogin} className="p-10 max-w-md mx-auto" noValidate>
-      <h2 className="text-2xl mb-4">Login</h2>
-      <input
-        name="email"
-        type="email"
-        autoComplete="email"
-        className="border p-2 w-full mb-3"
-        placeholder="Email"
-      />
-      <input
-        name="password"
-        type="password"
-        autoComplete="current-password"
-        className="border p-2 w-full mb-3"
-        placeholder="Password"
-      />
-      <button type="submit" className="bg-blue-600 text-white p-2 w-full">
-        Login
-      </button>
-    </form>
+    <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center bg-gray-100 px-4 py-8">
+      <div className="w-full max-w-md rounded-xl bg-white p-8 shadow-lg">
+        <form onSubmit={handleLogin} className="space-y-6" noValidate>
+          <h2 className="text-center text-2xl font-bold text-gray-900">
+            Login
+          </h2>
+          <div className="space-y-3">
+            <input
+              name="email"
+              type="email"
+              autoComplete="email"
+              className="w-full rounded border border-gray-300 p-2 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+              placeholder="Email"
+            />
+            <input
+              name="password"
+              type="password"
+              autoComplete="current-password"
+              className="w-full rounded border border-gray-300 p-2 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+              placeholder="Password"
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full rounded bg-blue-600 p-2 font-medium text-white hover:bg-blue-700"
+          >
+            Login
+          </button>
+        </form>
+      </div>
+    </div>
   );
 }
 

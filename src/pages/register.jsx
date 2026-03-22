@@ -57,33 +57,44 @@ function Register() {
   };
 
   return (
-    <form onSubmit={handleRegister} className="p-10 max-w-md mx-auto" noValidate>
-      <h2 className="text-2xl mb-4">Register</h2>
-      <input
-        name="name"
-        type="text"
-        autoComplete="name"
-        className="border p-2 w-full mb-3"
-        placeholder="Name"
-      />
-      <input
-        name="email"
-        type="email"
-        autoComplete="email"
-        className="border p-2 w-full mb-3"
-        placeholder="Email"
-      />
-      <input
-        name="password"
-        type="password"
-        autoComplete="new-password"
-        className="border p-2 w-full mb-3"
-        placeholder="Password"
-      />
-      <button type="submit" className="bg-green-600 text-white p-2 w-full">
-        Register
-      </button>
-    </form>
+    <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center bg-gray-100 px-4 py-8">
+      <div className="w-full max-w-md rounded-xl bg-white p-8 shadow-lg">
+        <form onSubmit={handleRegister} className="space-y-6" noValidate>
+          <h2 className="text-center text-2xl font-bold text-gray-900">
+            Create Account
+          </h2>
+          <div className="space-y-3">
+            <input
+              name="name"
+              type="text"
+              autoComplete="name"
+              className="w-full rounded border border-gray-300 p-2 outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600"
+              placeholder="Name"
+            />
+            <input
+              name="email"
+              type="email"
+              autoComplete="email"
+              className="w-full rounded border border-gray-300 p-2 outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600"
+              placeholder="Email"
+            />
+            <input
+              name="password"
+              type="password"
+              autoComplete="new-password"
+              className="w-full rounded border border-gray-300 p-2 outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600"
+              placeholder="Password"
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full rounded bg-green-600 p-2 font-medium text-white hover:bg-green-700"
+          >
+            Register
+          </button>
+        </form>
+      </div>
+    </div>
   );
 }
 
