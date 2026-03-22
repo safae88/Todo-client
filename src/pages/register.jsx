@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import { apiUrl } from "../api";
 
 function Register() {
   const navigate = useNavigate();
@@ -13,9 +14,7 @@ function Register() {
     const passwordValue = String(fd.get("password") ?? "");
 
     try {
-      const res = await fetch(
-        "https://selfless-nourishment-production-9209.up.railway.app/api/auth/register",
-        {
+      const res = await fetch(apiUrl("/api/auth/register"), {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import AddTask from "../components/AddTask";
 import TaskCard from "../components/TaskCard";
 import { useNavigate } from "react-router-dom";
+import { apiUrl } from "../api";
 
 function Dashboard() {
   const [tasks, setTasks] = useState([]);
@@ -36,9 +37,7 @@ function Dashboard() {
       if (!token) return;
 
       try {
-        const res = await fetch(
-          "https://selfless-nourishment-production-9209.up.railway.app/api/tasks",
-          {
+        const res = await fetch(apiUrl("/api/tasks"), {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -65,9 +64,7 @@ function Dashboard() {
     const token = localStorage.getItem("token");
 
     try {
-      const res = await fetch(
-        "https://selfless-nourishment-production-9209.up.railway.app/api/tasks",
-        {
+      const res = await fetch(apiUrl("/api/tasks"), {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -96,9 +93,7 @@ function Dashboard() {
     const token = localStorage.getItem("token");
 
     try {
-      const res = await fetch(
-        `https://selfless-nourishment-production-9209.up.railway.app/api/tasks/${id}`,
-        {
+      const res = await fetch(apiUrl(`/api/tasks/${id}`), {
           method: "DELETE",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -130,9 +125,7 @@ function Dashboard() {
         : "To-Do";
 
     try {
-      const res = await fetch(
-        `https://selfless-nourishment-production-9209.up.railway.app/api/tasks/${id}`,
-        {
+      const res = await fetch(apiUrl(`/api/tasks/${id}`), {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
