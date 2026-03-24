@@ -1,6 +1,6 @@
 {
-  "short_name": "ToDo",
-  "name": "One task closer to your goals.",
+  "short_name": "Todo",
+  "name": "Todo App",
   "icons": [
     {
       "src": "todo1.jpg",
