@@ -3,17 +3,17 @@
   "name": "Todo App",
   "icons": [
     {
-      "src": "todo1.jpg",
+      "src": "todo1.jpg?v=3",
       "sizes": "192x192",
       "type": "image/jpeg"
     },
     {
-      "src": "todo1.jpg",
+      "src": "todo1.jpg?v=3",
       "type": "image/jpeg",
       "sizes": "192x192"
     },
     {
-      "src": "todo1.jpg",
+      "src": "todo1.jpg?v=3",
       "type": "image/jpeg",
       "sizes": "512x512"
     }
