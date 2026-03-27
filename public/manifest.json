@@ -1,20 +1,20 @@
 {
-  "short_name": "Todo",
-  "name": "Todo App",
+  "short_name": "Sirena",
+  "name": "Sirena is always with you",
   "icons": [
     {
-      "src": "todo1.jpg?v=3",
+      "src": "todologo.png?v=3",
       "sizes": "192x192",
-      "type": "image/jpeg"
+      "type": "image/png"
     },
     {
-      "src": "todo1.jpg?v=3",
-      "type": "image/jpeg",
+      "src": "todologo.png?v=3",
+      "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "todo1.jpg?v=3",
-      "type": "image/jpeg",
+      "src": "todologo.png?v=3",
+      "type": "image/png",
       "sizes": "512x512"
     }
   ],
